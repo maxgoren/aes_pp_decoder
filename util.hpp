@@ -38,13 +38,15 @@ string extractString(vector<Byte>& bytes, int offset, int len) {
     return str;
 }
 
-vector<Byte> hexStringToByteArray(string s) {
+vector<Byte> hexStringToByteArray(string s, bool verbose) {
     int len = s.length();
     vector<Byte> byteArray;
     for (int i = 0, bn = 0; i < len; i += 2, bn++) {
         string bs = s.substr(i, 2);
         unsigned char byte = (unsigned char)stoi(bs, 0, 16);
-        cout<<bn<<": "<<bs<<" -> c: '"<<byte<<"', i:"<<byteToInt(byte)<<endl;
+        if (verbose) {
+            cout<<bn<<": "<<bs<<" -> c: '"<<byte<<"', i:"<<byteToInt(byte)<<endl;
+        }
         byteArray.push_back(byte);
     }
     return byteArray;

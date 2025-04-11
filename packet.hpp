@@ -49,12 +49,12 @@ struct Packet {
 };
 
 
-Packet hexStringToPacket(string hexString) {
+Packet hexStringToPacket(string hexString, bool verbose) {
     if (hexString.substr(0, 2) != "PP") {
         cout<<"Error: This Utility Only supports PP packets."<<endl;
         exit(0);
     }
-    vector<Byte> bytes = hexStringToByteArray(hexString.substr(PACKET_START_POS));
+    vector<Byte> bytes = hexStringToByteArray(hexString.substr(PACKET_START_POS), verbose);
     Packet p;
     p.cksum = calculateChecksum(bytes, bytes.size()-2);
     p.toId = extractString(bytes, TO, 2);
@@ -66,7 +66,7 @@ Packet hexStringToPacket(string hexString) {
     p.sequenceNumber = byteToInt(bytes[PNUM]);
     p.payLoadLength = byteToInt(bytes[LEN]);
     string body;
-    for (int i = DATA; i < bytes.size()-2; i++) {
+    for (auto i = DATA; i < bytes.size()-2; i++) {
         body.push_back(bytes[i]);
     }
     p.body = body;
