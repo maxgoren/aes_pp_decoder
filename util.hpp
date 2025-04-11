@@ -32,7 +32,7 @@ static int calculateChecksum(vector<Byte> body, int slen) {
 
 string extractString(vector<Byte>& bytes, int offset, int len) {
     string str;
-    for (int i = offset, j = 0; j < len; j++) {
+    for (int j = 0; j < len; j++) {
         str += byteToHex(bytes[offset+j]);
     }
     return str;
